@@ -1,12 +1,20 @@
 #include <postgres.h>
 #include <access/xact.h>
 #include <access/transam.h>
+#ifdef _MSC_VER
+#include "msvc/extension.h"
+#else
 #include <commands/extension.h>
+#endif /* _MSC_VER */
 #include <commands/event_trigger.h>
 #include <catalog/namespace.h>
 #include <utils/lsyscache.h>
 #include <utils/inval.h>
+#ifdef _MSC_VER
+#include "msvc/miscadmin.h"
+#else
 #include <miscadmin.h>
+#endif /* _MSC_VER */
 
 #include "catalog.h"
 #include "extension.h"
@@ -195,7 +203,6 @@ extension_is_loaded(void)
 	if (creating_extension)
 	{
 		Oid			extension_oid = get_extension_oid(EXTENSION_NAME, true);
-
 		if (OidIsValid(extension_oid) && extension_oid == CurrentExtensionObject)
 			return false;
 	}

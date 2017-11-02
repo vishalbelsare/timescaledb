@@ -5,7 +5,11 @@
 #include <optimizer/planner.h>
 #include <optimizer/pathnode.h>
 #include <optimizer/paths.h>
+#ifdef _MSC_VER
+#include "msvc/optimizer/cost.h"
+#else
 #include <optimizer/cost.h>
+#endif /* _MSC_VER */
 #include <catalog/namespace.h>
 #include <utils/guc.h>
 #include <miscadmin.h>

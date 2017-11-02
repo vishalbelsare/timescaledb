@@ -19,6 +19,7 @@
 #include <nodes/pg_list.h>
 
 #include "partitioning.h"
+#include "compat.h"
 #include "catalog.h"
 #include "utils.h"
 
@@ -169,9 +170,7 @@ partitioning_func_apply_tuple(PartitioningInfo *pinfo, HeapTuple tuple, TupleDes
 }
 
 /* _timescaledb_catalog.get_partition_for_key(key TEXT) RETURNS INT */
-PGDLLEXPORT Datum get_partition_for_key(PG_FUNCTION_ARGS);
-
-PG_FUNCTION_INFO_V1(get_partition_for_key);
+TS_FUNCTION_INFO_V1(get_partition_for_key);
 
 /*
  * Deprecated function to calculate partition hash values.
@@ -235,9 +234,7 @@ resolve_function_argtype(FunctionCallInfo fcinfo)
 	return argtype;
 }
 
-PGDLLEXPORT Datum get_partition_hash(PG_FUNCTION_ARGS);
-
-PG_FUNCTION_INFO_V1(get_partition_hash);
+TS_FUNCTION_INFO_V1(get_partition_hash);
 
 /*
  * Compute a partition hash value for any input type.

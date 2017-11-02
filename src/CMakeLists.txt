@@ -11,12 +11,16 @@ endif (UNIX)
 if (APPLE)
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -multiply_defined suppress")
   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -multiply_defined suppress -Wl,-undefined,dynamic_lookup -Wl,-dead_strip_dylibs -bundle_loader ${PG_BINDIR}/postgres")
+elseif (WIN32)
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MANIFEST:NO")
+  set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /MANIFEST:NO")
 endif (APPLE)
 
 include_directories (${CMAKE_CURRENT_BINARY_DIR} ${PG_INCLUDEDIR} ${PG_INCLUDEDIR_SERVER})
 
 if (WIN32)
   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${PG_LIBDIR}/postgres.lib ws2_32.lib")
+  set(CMAKE_C_FLAGS "-D_CRT_SECURE_NO_WARNINGS")
   include_directories(${PG_INCLUDEDIR_SERVER}/port/win32)
 
 if (MSVC)
@@ -51,6 +55,9 @@ set(HEADERS
   hypertable.h
   hypertable_insert.h
   indexing.h
+  msvc/extension.h
+  msvc/miscadmin.h
+  msvc/optimizer/cost.h
   parse_rewrite.h
   partitioning.h
   planner_utils.h
