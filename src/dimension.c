@@ -200,7 +200,7 @@ calculate_closed_range_default(Dimension *dim, int64 value)
 	if (value >= (interval * (dim->fd.num_slices - 1)))
 	{
 		/* put overflow from integer-division errors in last range */
-		range_start = interval * (dim->fd.num_slices - 1);
+		range_start = (int64)interval * (int64)(dim->fd.num_slices - 1);
 		range_end = RANGE_VALUE_MAX;
 	}
 	else

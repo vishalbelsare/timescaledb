@@ -90,7 +90,7 @@ partitioning_info_create(const char *schema,
 	pinfo->column_attnum = get_attnum(relid, pinfo->column);
 
 	if (schema != NULL)
-		strncpy(pinfo->partfunc.schema, schema, NAMEDATALEN);
+		StrNCpy(pinfo->partfunc.schema, schema, NAMEDATALEN);
 
 	/* Lookup the type cache entry to access the hash function for the type */
 	columntype = get_atttype(relid, pinfo->column_attnum);
